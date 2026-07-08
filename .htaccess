@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /sikepal-report/
+    
+    # Jika request ke root, redirect ke public
+    RewriteRule ^$ public/index.php [L]
+    
+    # Jika request bukan ke file/folder yang ada, redirect ke public
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/index.php?route=$1 [QSA,L]
+</IfModule>
+
+# ========================================
+# IZINKAN AKSES KE SEMUA FILE
+# ========================================
+Options -Indexes
+Options +FollowSymLinks
+
+<FilesMatch "\.(php|html|htm)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Izinkan akses ke semua file
+<Files *>
+    Order Allow,Deny
+    Allow from all
+</Files>

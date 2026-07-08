@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+    RewriteBase /sikepal-report/public/
+    
+    # Izinkan akses ke file statis (CSS, JS, Gambar)
+    RewriteCond %{REQUEST_URI} !\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot|map)$ [NC]
+    
+    # Redirect semua request ke index.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+</IfModule>
+
+# ========================================
+# IZINKAN AKSES
+# ========================================
+Options -Indexes
+Options +FollowSymLinks
+
+<FilesMatch "\.(php|html|htm)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+<Files *>
+    Order Allow,Deny
+    Allow from all
+</Files>
